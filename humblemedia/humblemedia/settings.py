@@ -14,6 +14,10 @@ USE_L10N = True
 USE_TZ = True
 WSGI_APPLICATION = 'humblemedia.wsgi.application'
 
+TEMPLATE_DIRS = (
+    "humblemedia/templates/",
+)
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
