@@ -26,7 +26,7 @@ INSTALLED_APPS = (
 
     'accounts',
     'payments',
-    'contents',
+    'resources',
     'causes',
     'organizations',
 )
