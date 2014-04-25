@@ -55,3 +55,7 @@ docs/_build/
 
 # Django's local_settings.py
 local_settings.py
+
+#OSX
+.DS_Store
+

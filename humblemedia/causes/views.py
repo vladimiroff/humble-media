@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from humblemedia.causes.models import Cause
 
-# Create your views here.
+
+class CauseList(ListView):
+
+    model = Cause
+
+    def get_queryset(self):
+        return self.model.filter(is_published=True, is_verified=True)

@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'django_extensions',
+    'taggit',
 
     'accounts',
     'payments',
