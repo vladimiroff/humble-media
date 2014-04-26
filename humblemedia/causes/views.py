@@ -21,7 +21,8 @@ class AuthViewMixin:
 
 class CauseList(ListView):
     model = Cause
-
+    context_object_name = 'causes'
+    
     def get_queryset(self):
         return self.model.objects.filter(is_published=True, is_verified=True)
 

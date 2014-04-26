@@ -61,3 +61,4 @@ local_settings.py
 
 /static
 humble
+media

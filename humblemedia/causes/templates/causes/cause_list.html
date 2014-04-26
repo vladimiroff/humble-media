@@ -1,2 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="page-content-wrapper">
+        <div class="content-header">
+        <h1>
+            Our organizations:
+        </h1>
+    </div>
+    {% for cause in causes %}
+    <div class="col-12 col-sm-12 col-lg-12 well">
+        <div class="content-heading clearfix media" style="float: left; margin-right: 20px; ">
+            <img src="{{ MEDIA_URL }}{{ cause.logo}}" style="border-radius: 50%; border: 3px solid; width: 150px; margin-bottom: 20px; margin-top: 30px;">
+        </div>
+        <h3>{{ cause.title }}</h3>
+        <p>{{ cause.description }}</p>
+        <p>Target: {{ cause.target }}$</p>
+        <p>Website: <a href="{{ cause.url }}">{{ cause.url }}</a><br>
+        Organization: {{ cause.organization }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
 
 {{ object_list }}
