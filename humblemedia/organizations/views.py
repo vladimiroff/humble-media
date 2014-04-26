@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 
 from .models import Organization
 from .forms import OrganizationForm
@@ -16,6 +15,7 @@ def add(request):
     return render(request, 'organizations/add.html', locals())
 
 
+@login_required
 def edit(request, pk=None):
     organization = get_object_or_404(Organization, id=pk)
     if request.user in organization.admins.all():
@@ -34,13 +34,14 @@ def view(request, pk=None):
     return render(request, 'organizations/view.html', locals())
 
 
+@login_required
 def delete(request, pk=None):
     organization = get_object_or_404(Organization, id=pk)
     if request.user in organization.admins.all():
         organization.delete()
     return redirect('organizations/list')
 
+
 def list(request):
     organizations = Organization.objects.all()
     return render(request, 'organizations/list.html', locals())
-

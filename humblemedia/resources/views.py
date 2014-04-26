@@ -118,4 +118,3 @@ def upload_attachment(request, model, pk):
         mm.process()
         return redirect('/{}/{}/'.format(model, pk))
     return render(request, 'resources/upload.html', locals())
-
