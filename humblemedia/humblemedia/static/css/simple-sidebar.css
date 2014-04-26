@@ -1,15 +1,27 @@
-#page-content-wrapper{
-  padding-top: 45px;
+#wrapper {
+  padding-left: 250px;
+  transition: all 0.4s ease 0s;
 }
-.navbar.navbar-default {
-  margin-bottom: 0;  
+
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background: #000;
   position: fixed;
-  width: 100%;
-  z-index: 1001;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
 }
+
+#page-content-wrapper {
+  width: 100%;
+}
+
 .sidebar-nav {
   position: absolute;
-  top: 40px;
+  top: 0;
   width: 250px;
   list-style: none;
   margin: 0;
@@ -29,7 +41,7 @@
 
 .sidebar-nav li a:hover {
   color: #fff;
-  background: #272727;
+  background: rgba(255,255,255,0.2);
   text-decoration: none;
 }
 

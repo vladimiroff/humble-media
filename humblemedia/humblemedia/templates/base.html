@@ -35,6 +35,11 @@
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
+        if($("#wrapper").is('.active')){
+            $("#menu-toggle i").addClass("glyphicon-chevron-left").removeClass("glyphicon-chevron-right");
+        } else {
+            $("#menu-toggle i").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-left");
+        }
     });
     </script>
     </body>
