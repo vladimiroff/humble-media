@@ -18,7 +18,7 @@ class Cause(models.Model):
 
     is_verified = models.BooleanField(default=False)
     is_published = models.BooleanField(default=False)
-    is_deleted= models.PositiveIntegerField(default=False)
+    is_deleted= models.BooleanField(default=False)
 
     tags = TaggableManager()
 
