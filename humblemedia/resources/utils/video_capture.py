@@ -1,7 +1,7 @@
 import subprocess
 import re
 
-def get_video_duration(filename):
+def _get_video_duration(filename):
     # returns duration in seconds
     command = 'ffmpeg -i %s 2>&1 | grep "Duration"' % filename
     result = subprocess.Popen(command,
@@ -20,14 +20,14 @@ def get_video_duration(filename):
 
     return hours * 3600 + (minutes * 60) + seconds
 
-def get_video_capture(filename, at_second, output_file):
+def _get_video_capture(filename, at_second, output_file):
     command = 'ffmpeg -ss %s -i %s -vframes 1 %s' % (at_second, filename, output_file)
     subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
 
 def get_random_video_captures(filename, count, output_files):
     INITIAL_CAPTURE_SECOND = 5
-    duration = get_video_duration(filename)
+    duration = _get_video_duration(filename)
     capture_window = (duration - INITIAL_CAPTURE_SECOND) / count
     capture_tuples = zip(range(INITIAL_CAPTURE_SECOND, duration, round(capture_window)), output_files)
     for (at_second, output_file) in capture_tuples:
-        get_video_capture(filename, at_second, output_file)
+        _get_video_capture(filename, at_second, output_file)
