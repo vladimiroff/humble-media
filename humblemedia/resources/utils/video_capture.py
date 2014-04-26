@@ -27,7 +27,7 @@ def _get_video_capture(input_file, at_second, output_file):
 def get_random_video_captures(input_file, count, output_files):
     INITIAL_CAPTURE_SECOND = 5
     duration = _get_video_duration(input_file)
-    capture_window = (duration - INITIAL_CAPTURE_SECOND) / count
-    capture_tuples = zip(range(INITIAL_CAPTURE_SECOND, duration, round(capture_window)), output_files)
+    capture_window = round((duration - INITIAL_CAPTURE_SECOND) / count)
+    capture_tuples = zip(range(INITIAL_CAPTURE_SECOND, duration, capture_window), output_files)
     for (at_second, output_file) in capture_tuples:
         _get_video_capture(input_file, at_second, output_file)
