@@ -9,8 +9,8 @@ class CauseForm(forms.ModelForm):
         model = Cause
         fields = ('title',
                   'description',
-                  'creator',
                   'organization',
                   'target',
                   'url',
-                  'is_published')
+                  'tags',
+        )
