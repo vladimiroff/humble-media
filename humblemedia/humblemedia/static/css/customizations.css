@@ -29,7 +29,9 @@
   z-index: 1000;
   transition: all 0.4s ease 0s;
 }
-
+.sidebar-nav {
+  top: 40px;
+}
 
 @media (max-width:767px) {
 
