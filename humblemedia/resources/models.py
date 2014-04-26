@@ -43,7 +43,7 @@ class Resource(models.Model):
         return super().save(*args, **kwargs)
 
 
-class Audio(models.Model):
-    attachment = models.ForeignKey(Attachment, related_name="audio")
-    file_name = models.CharField(max_length=256)
-    mp3 = models.FileField(upload_to="snippets")
+class Preview(models.Model):
+    attachment = models.ForeignKey(Attachment, related_name="preview")
+    preview_file = models.FileField(upload_to="previews")
+    preview_type = models.CharField(max_length=32)
