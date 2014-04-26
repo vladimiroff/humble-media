@@ -2,12 +2,12 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.views.generic import (CreateView, DeleteView, DetailView,
-                                  ListView, UpdateView)
-from django.shortcuts import render, redirect
+                                  ListView, UpdateView, FormView)
+from django.shortcuts import render, redirect, get_object_or_404
 
 from humblemedia.utils import LoginRequiredMixin
 from .models import Resource
-from .forms import AttachmentForm
+from .forms import AttachmentForm, StripeForm
 
 
 PUBLIC_FIELDS = (
@@ -80,6 +80,27 @@ class ResourceDelete(LoginRequiredMixin, DeleteView):
         if not resource.author == self.request.user:
             raise HttpResponseForbidden("You cannot delete this resource")
         return resource
+
+
+class ResourceBuy(LoginRequiredMixin, FormView):
+    template_name = 'resources/payment.html'
+
+    def form_valid(self, form):
+        form.charge()
+
+    def get(self, request, pk, **kwargs):
+        resource = get_object_or_404(Resource, pk=pk)
+        form = StripeForm(request.user, resource)
+        return self.render_to_response(self.get_context_data(form=form, resource=resource))
+
+    def post(self, request, pk, **kwargs):
+        resource = get_object_or_404(Resource, pk=pk)
+        form = StripeForm(request.user, resource)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
 
 
 def upload_attachment(request, model, pk):

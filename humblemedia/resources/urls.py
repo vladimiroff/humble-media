@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/$', views.ResourceDetail.as_view(), name='detail'),
     url(r'^(?P<pk>\d+)/edit/$', views.ResourceEdit.as_view(), name='edit'),
     url(r'^(?P<pk>\d+)/delete/$', views.ResourceDelete.as_view(), name='delete'),
+    url(r'^(?P<pk>\d+)/buy/$', views.ResourceBuy.as_view(), name='buy'),
 )
