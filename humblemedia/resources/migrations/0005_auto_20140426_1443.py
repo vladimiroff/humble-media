@@ -6,7 +6,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('resources', '0003_remove_resource_file'),
+        ('resources', '0004_remove_resource_file'),
     ]
 
     operations = [
