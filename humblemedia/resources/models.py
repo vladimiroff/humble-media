@@ -5,6 +5,8 @@ from taggit.managers import TaggableManager
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
+from payments.models import Payment
+
 
 class Attachment(models.Model):
     file = models.FileField(upload_to='attachments')
@@ -51,6 +53,9 @@ class Resource(models.Model):
     def save(self, *args, **kwargs):
         self.modified_at = timezone.now()
         return super().save(*args, **kwargs)
+
+    def is_bought_by(user):
+        return Payment.objects.filter(resource=resource, user=user).exists()
 
 
 class Preview(models.Model):
