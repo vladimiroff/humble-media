@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponseForbidden
 from django.views.generic import (CreateView, DeleteView, DetailView,
                                   ListView, UpdateView)
+from django.shortcuts import render, redirect
 
 from humblemedia.utils import LoginRequiredMixin
 from .models import Resource
+from .forms import AttachmentForm
 
 
 PUBLIC_FIELDS = (
@@ -78,3 +80,14 @@ class ResourceDelete(LoginRequiredMixin, DeleteView):
         if not resource.author == self.request.user:
             raise HttpResponseForbidden("You cannot delete this resource")
         return resource
+
+
+def upload_attachment(request, model, pk):
+    data = request.POST if request.POST else None
+    files = request.FILES
+    form = AttachmentForm(data, files, model=model, id=pk)
+    if form.is_valid():
+        form.save()
+        return redirect('/{}/{}/'.format(model, pk))
+    return render(request, 'resources/upload.html', locals())
+

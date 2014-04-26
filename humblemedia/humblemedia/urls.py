@@ -13,4 +13,6 @@ urlpatterns = patterns('',
     url(r'^resources/', include('resources.urls', namespace='resources')),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': settings.MEDIA_ROOT}),
+    url(r'^(?P<model>(resources|causes))/(?P<pk>.*)/upload/$', 'resources.views.upload_attachment',
+        name='upload-attachment'),
 )
