@@ -52,13 +52,21 @@
         </div>
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
         </div>
+        
     {% block content %}
 
     {% endblock %}
 
-
+    <div id="footer">
+        <div class="container">
+            <p class="text-muted">Place sticky footer content here.</p>
+        </div>
+    </div>
+    
     {% block jsfooter %}
 
     {% endblock %}
+    <script src="{{ STATIC_URL }}/js/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}/js/bootstrap.min.js"></script>
     </body>
 </html>
