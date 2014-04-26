@@ -26,10 +26,17 @@ class AttachmentForm(forms.ModelForm):
 
 
 class ResourceForm(forms.ModelForm):
+
+    def save(self, *args, **kwargs):
+        instance = super(ResourceForm, self).save()
+        self.save_m2m()
+        return instance
+
     class Meta:
         fields = (
             'title',
             'description',
             'min_price',
+            'causes',
             'is_published',
         )
