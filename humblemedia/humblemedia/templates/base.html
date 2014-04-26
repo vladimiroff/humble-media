@@ -1,0 +1,61 @@
+<head>
+    <link href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/simple-sidebar.css" type="text/css" rel="stylesheet">
+
+    {% block meta %}
+
+    {% endblock %}
+</head>
+<body>
+    <div class="bs-component">
+    {% include "navbar.html" %}
+
+        <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+        </div>
+        
+      <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">Start Bootstrap</a>
+                </li>
+                <li><a href="#">Dashboard</a>
+                </li>
+                <li><a href="#">Shortcuts</a>
+                </li>
+                <li><a href="#">Overview</a>
+                </li>
+                <li><a href="#">Events</a>
+                </li>
+                <li><a href="#">About</a>
+                </li>
+                <li><a href="#">Services</a>
+                </li>
+                <li><a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+        <!-- Page content -->
+       
+
+    </div>
+    
+    {% block jsfooter %}
+
+    {% endblock %}
+    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("active");
+    });
+    </script>
+    </body>
+</html>

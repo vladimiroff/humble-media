@@ -7,12 +7,21 @@ LANGUAGE_CODE = 'en-us'
 ROOT_URLCONF = 'humblemedia.urls'
 SECRET_KEY = '5*trcgvuqlu)c+n2665!*-m=xicn$tuitwy4w7rknelpreleg!'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 TEMPLATE_DEBUG = True
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 WSGI_APPLICATION = 'humblemedia.wsgi.application'
+
+TEMPLATE_DIRS = (
+    "humblemedia/templates/",
+)
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'humblemedia/static'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.admin',
