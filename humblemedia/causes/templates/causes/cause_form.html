@@ -1,5 +1,10 @@
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="form-wrap">
+        <form method="POST" class="form form-horizontal">
+            {% crispy form %}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}
