@@ -24,12 +24,12 @@ class BaseProcessor(metaclass=ABCMeta):
         rec.preview_file = "{}.{}".format(str(uuid.uuid4()).replace("-",""), self.get_target_extension())
 
 
-        input_path = self.attachment.file_name.path
+        input_path = self.attachment.file.path
         output_path = rec.preview_file.path
 
-        if self.process_file(input_path, output_path):
-            rec.save()
-            return rec
+        self.process_file(input_path, output_path)
+        rec.save()
+        return rec
 
     def get_target_extension(self):
         raise NotImplementedError("Please specify target extension")
@@ -92,8 +92,7 @@ class MediaManager():
 
     def process(self):
         att = self.attachment
-        mime = self.get_mime_type(att.file_name.path).decode()
-        print ("Mime={}".format(mime))
+        mime = self.get_mime_type(att.file.path).decode()
         for mod in self.PROCESSING_MODULES:
             if mime in mod.mime_types or any(map(att.file_name.name.endswith, mod.extensions)):
                 mod.start_processing(att)

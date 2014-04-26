@@ -23,8 +23,8 @@ def process_mp3(input_path, output_path):
                                     )
 
         res = subprocess.check_output(command, shell=True)
-    except subprocess.CalledProcessError:
-        LOG.exception("Failed to process {}".format(input_path))
+    except subprocess.CalledProcessError as exc:
+        print ("Failed to process {}: {}".format(input_path, exc))
         return None
     else:
         return res.decode()
