@@ -26,9 +26,7 @@
 
     </div>
     
-    {% block jsfooter %}
-
-    {% endblock %}
+   
     <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <script>
@@ -41,6 +39,22 @@
             $("#menu-toggle i").addClass("glyphicon-chevron-right").removeClass("glyphicon-chevron-left");
         }
     });
+    </script>
+    {% block jsfooter %}
+
+    {% endblock %} 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.nav.navbar-nav li').each(function(idx, el){
+                var elObj = $(el)
+                if (-1 != location.pathname.search('^'+ elObj.find('a').attr('href')+'$') ){
+                    elObj.addClass('active');
+                } else {
+                    elObj.removeClass('active');
+                }
+                //debugger;
+            });
+        });
     </script>
     </body>
 </html>
