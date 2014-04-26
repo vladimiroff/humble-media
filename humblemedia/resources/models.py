@@ -11,9 +11,10 @@ class Attachment(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+    mime_type = models.CharField(max_length=64, null=True)
 
-    def __unicode__(self):
-        return unicode(self.file_name)
+    def __str__(self):
+        return self.file_name
 
     def document_(self):
         return format(str(self.file_name).split('/')[-1])
