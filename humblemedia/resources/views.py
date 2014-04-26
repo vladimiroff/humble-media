@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from humblemedia.utils import LoginRequiredMixin
 from .models import Resource
 from .forms import AttachmentForm, StripeForm
+from .processing import MediaManager
 
 
 PUBLIC_FIELDS = (
@@ -112,7 +113,9 @@ def upload_attachment(request, model, pk):
     files = request.FILES
     form = AttachmentForm(data, files, model=model, id=pk)
     if form.is_valid():
-        form.save()
+        obj = form.save()
+        mm = MediaManager(obj)
+        mm.process()
         return redirect('/{}/{}/'.format(model, pk))
     return render(request, 'resources/upload.html', locals())
 

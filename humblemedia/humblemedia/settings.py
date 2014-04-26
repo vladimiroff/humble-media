@@ -1,13 +1,13 @@
 import os
 
 ALLOWED_HOSTS = []
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DEBUG = True
 LANGUAGE_CODE = 'en-us'
 ROOT_URLCONF = 'humblemedia.urls'
 SECRET_KEY = '5*trcgvuqlu)c+n2665!*-m=xicn$tuitwy4w7rknelpreleg!'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DEBUG = True
 TIME_ZONE = 'UTC'
 USE_I18N = True
