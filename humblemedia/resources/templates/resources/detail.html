@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load price %}
+
+{% block content %}
+<div id="page-content-wrapper">
+    <div class="page-content inset">
+        <h3>{{ resource.title }}</h3>
+        <p>{{ resource.description }}</p>
+        <p>{{ resource.description }}</p>
+        <p>Mininal price: {{ resource.min_price|price }}</p>
+        <p>Author: {{ resource.author.get_full_name }}</p>
+        <p>Causes: 
+            {{ resource.causes.all | join:", " }}
+        </p>
+    </div>
+</div>
+{% endblock %}
