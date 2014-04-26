@@ -8,38 +8,17 @@
 </head>
 <body>
     <div class="bs-component">
-    {% include "navbar.html" %}
+        {% include "navbar.html" %}
 
         <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
-        </div>
+    </div>
         
-      <div id="wrapper">
+    <div id="wrapper">
+        {% include "sidebar.html" %}
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Start Bootstrap</a>
-                </li>
-                <li><a href="#">Dashboard</a>
-                </li>
-                <li><a href="#">Shortcuts</a>
-                </li>
-                <li><a href="#">Overview</a>
-                </li>
-                <li><a href="#">Events</a>
-                </li>
-                <li><a href="#">About</a>
-                </li>
-                <li><a href="#">Services</a>
-                </li>
-                <li><a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
+        {% block content %}
 
-    {% block content %}
-
-    {% endblock %}
+        {% endblock %}
 
         <!-- Page content -->
        
