@@ -19,6 +19,10 @@ TEMPLATE_DIRS = (
     "humblemedia/templates/",
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'humblemedia/static'),
+)
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
