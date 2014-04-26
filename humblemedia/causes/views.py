@@ -25,6 +25,7 @@ class MyCauseList(LoginRequiredMixin, CauseList):
 
 
 class CauseDetails(DetailView):
+    context_object_name = 'cause'
     model = Cause
 
 

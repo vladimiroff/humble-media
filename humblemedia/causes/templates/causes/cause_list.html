@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load price %}
 
 {% block content %}
 <div id="page-content-wrapper">
@@ -10,9 +11,9 @@
         <div class="content-heading clearfix media" style="float: left; margin-right: 20px; ">
             <img src="{{ MEDIA_URL }}{{ cause.logo}}" style="border-radius: 50%; border: 3px solid; width: 150px; margin-bottom: 20px; margin-top: 30px;">
         </div>
-        <h3>{{ cause.title }}</h3>
-        <p>{{ cause.description }}</p>
-        <p>Target: {{ cause.target }}$</p>
+        <h3><a href="{% url 'causes:details' cause.id %}">{{ cause.title }}</a></h3>
+        <p>{{ cause.description | slice:"300" }}..</p>
+        <p>Target: {{ cause.target|price }}</p>
         <p>Website: <a href="{{ cause.url }}">{{ cause.url }}</a><br>
         Organization: {{ cause.organization }}</p>
     </div>

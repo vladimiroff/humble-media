@@ -13,7 +13,7 @@ class Attachment(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return self.file
+        return self.file.name
 
     def document_(self):
         return format(str(self.file).split('/')[-1])
