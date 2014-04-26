@@ -102,7 +102,6 @@ class ResourceBuy(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 
 
-
 def upload_attachment(request, model, pk):
     data = request.POST if request.POST else None
     files = request.FILES

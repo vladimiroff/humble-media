@@ -24,7 +24,7 @@ class AttachmentForm(forms.ModelForm):
     class Meta:
         model = Attachment
         fields = (
-            'file_name',
+            'file',
         )
 
 
@@ -42,6 +42,7 @@ class ResourceForm(forms.ModelForm):
             'min_price',
             'causes',
             'is_published',
+            'license',
         )
 
 

@@ -7,16 +7,25 @@ from django.contrib.contenttypes.models import ContentType
 
 
 class Attachment(models.Model):
-    file_name = models.FileField(upload_to='attachments')
+    file = models.FileField(upload_to='attachments')
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
     def __str__(self):
-        return self.file_name
+        return self.file
 
     def document_(self):
-        return format(str(self.file_name).split('/')[-1])
+        return format(str(self.file).split('/')[-1])
+
+
+class License(models.Model):
+    name = models.CharField(max_length=64)
+    text = models.TextField()
+    url = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Resource(models.Model):
@@ -29,6 +38,7 @@ class Resource(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(default=timezone.now)
     causes = models.ManyToManyField('causes.Cause', related_name='resources')
+    license = models.ForeignKey('License', related_name='resources', null=True, blank=True)
 
     tags = TaggableManager()
 

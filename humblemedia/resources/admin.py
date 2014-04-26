@@ -9,4 +9,5 @@ class AttachmentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Attachment, AttachmentAdmin)
-admin.site.register(models.Resource, admin.ModelAdmin)
+admin.site.register(models.Resource)
+admin.site.register(models.License)
