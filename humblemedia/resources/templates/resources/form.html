@@ -1,6 +1,8 @@
-{{ form.errors }}
-<form method="POST" action="">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <input type="submit" value="Submit">
-</form>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form method="POST">
+        {% crispy form %}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

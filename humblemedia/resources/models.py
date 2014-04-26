@@ -41,3 +41,9 @@ class Resource(models.Model):
     def save(self, *args, **kwargs):
         self.modified_at = timezone.now()
         return super().save(*args, **kwargs)
+
+
+class Audio(models.Model):
+    attachment = models.ForeignKey(Attachment, related_name="audio")
+    file_name = models.CharField(max_length=256)
+    mp3 = models.FileField(upload_to="snippets")
