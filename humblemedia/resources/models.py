@@ -1,5 +1,21 @@
 from django.db import models
 from taggit.managers import TaggableManager
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+
+
+class Attachment(models.Model):
+    file_name = models.FileField(upload_to='attachments')
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __unicode__(self):
+        return unicode(self.file_name)
+
+    def document_(self):
+        return format(str(self.file_name).split('/')[-1])
+
 
 class Resource(models.Model):
     title = models.CharField(max_length=64)
