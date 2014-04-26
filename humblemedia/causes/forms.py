@@ -13,4 +13,5 @@ class CauseForm(forms.ModelForm):
                   'target',
                   'url',
                   'tags',
+                  'is_published',
         )
