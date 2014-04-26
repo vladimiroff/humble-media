@@ -25,32 +25,28 @@
                     <li><a href="#">Separated link</a></li>
                     <li><a href="#">One more separated link</a></li>
 
- -->                </ul>
+                -->                </ul>
             </li>
         </ul>
         <form class="navbar-form navbar-left">
             <input type="text" class="form-control col-lg-8" placeholder="Search">
         </form>
+        {% if not user.is_authenticated %}
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
         </ul>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-              </div>
-              <div class="modal-body">
-                {% include 'login.html'%}
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Login</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a data-toggle="dropdown" lass="dropdown-toggle" href="#user">
+                <span class="icon-user"></span> {{ user.get_full_name }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            </ul>
+          
+        </ul>
+        </li>
+        {% endif %}
     </div>
+</div>
 </div>
