@@ -5,7 +5,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('resources', '0008_audio'),
+        ('resources', '0008_auto_20140426_1957'),
     ]
 
     operations = [
@@ -20,8 +20,5 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.DeleteModel(
-            name='Audio',
         ),
     ]
