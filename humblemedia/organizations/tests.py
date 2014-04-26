@@ -82,7 +82,7 @@ class OrganizationTest(TestCase):
         edit_project = Organization.objects.filter(title='Save the pandas')[0]
         self.assertEqual(edit_project.description, 'I want to save them all')
 
-    def test_admin_delete_project(self):
+    def test_admin_delete_organization(self):
         self.client.login(username='panda', password='lovebamboo')
         self.client.post('/organizations/add/', {
                          'title': 'Save the pandas',
@@ -101,4 +101,32 @@ class OrganizationTest(TestCase):
 
         self.assertEqual(before_delete - 1, after_delete)
 
+    def test_not_admin_delete_organization(self):
+        organization = Organization.objects.create(
+           title='Save the pandas',
+           description='I want to save them all',
+           url='www.pandanda.com',
+           logo=None,
+        )
+
+        organization.admins.add(self.user.pk)
+        before_delete = Organization.objects.count()
+
+        response = self.client.post('/organizations/delete/{}/'.format(organization.pk))
+
+        after_delete = Organization.objects.count()
+        self.assertEqual(before_delete, after_delete)
+
+    def test_list_organizations(self):
+        organization = Organization.objects.create(
+            title='Save the pandas',
+            description='I want to save them all',
+            url='www.pandanda.com',
+            logo=None,
+        )
+
+        response = self.client.post('/organizations/list/')
+
+        count = Organization.objects.count()
+        self.assertEqual(count, len(response.context['organizations']))
 
