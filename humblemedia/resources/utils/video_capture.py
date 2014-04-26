@@ -1,33 +1,21 @@
 import subprocess
-import re
+from .common import get_media_duration
 
-def _get_video_duration(input_file):
-    # returns duration in seconds
-    command = 'ffmpeg -i %s 2>&1 | grep "Duration"' % input_file
-    result = subprocess.Popen(command,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
-    stdout_lines = result.stdout.readlines()
-    duration_line = stdout_lines[0].decode()
-    match = re.match(r'\s*Duration:\s*(?P<hours>\d+):(?P<minutes>\d+):(?P<seconds>\d+)', duration_line)
-    if not match:
-        raise Exception('Invalid video file')
-
-    groups = match.groupdict()
-
-    hours   = int(groups.get('hours'))
-    minutes = int(groups.get('minutes'))
-    seconds = int(groups.get('seconds'))
-
-    return hours * 3600 + (minutes * 60) + seconds
-
-def _get_video_capture(input_file, at_second, output_file):
-    command = 'ffmpeg -ss %s -i %s -vframes 1 %s' % (at_second, input_file, output_file)
+def get_video_capture(filename, at_second, output_file):
+    command = 'ffmpeg -ss %s -i %s -vframes 1 %s' % (at_second, filename, output_file)
     subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
 
-def get_random_video_captures(input_file, count, output_files):
+def get_preview_tile(input_path, output_path):
+    cmd = 'ffmpeg -i {input} -frames 10 -vf "select=not(mod(n\,105)),scale=320:240,tile=3x6" {output}'.format(
+        input_path, output_path
+    )
+    res = subprocess.check_output(cmd, shell=True)
+    return res.decode()
+
+def get_random_video_captures(filename, count, output_files):
     INITIAL_CAPTURE_SECOND = 5
-    duration = _get_video_duration(input_file)
-    capture_window = round((duration - INITIAL_CAPTURE_SECOND) / count)
-    capture_tuples = zip(range(INITIAL_CAPTURE_SECOND, duration, capture_window), output_files)
+    duration = get_media_duration(filename)
+    capture_window = (duration - INITIAL_CAPTURE_SECOND) / count
+    capture_tuples = zip(range(INITIAL_CAPTURE_SECOND, duration, int(capture_window)), output_files)
     for (at_second, output_file) in capture_tuples:
-        _get_video_capture(input_file, at_second, output_file)
+        get_video_capture(filename, at_second, output_file)

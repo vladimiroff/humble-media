@@ -19,7 +19,6 @@ class Attachment(models.Model):
         return format(str(self.file_name).split('/')[-1])
 
 
-
 class Resource(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
@@ -29,6 +28,7 @@ class Resource(models.Model):
     is_verified = models.BooleanField(default=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(default=timezone.now)
+    causes = models.ManyToManyField('causes.Cause', related_name='resources')
 
     tags = TaggableManager()
 
@@ -41,3 +41,9 @@ class Resource(models.Model):
     def save(self, *args, **kwargs):
         self.modified_at = timezone.now()
         return super().save(*args, **kwargs)
+
+
+class Preview(models.Model):
+    attachment = models.ForeignKey(Attachment, related_name="preview")
+    preview_file = models.FileField(upload_to="previews")
+    preview_type = models.CharField(max_length=32)

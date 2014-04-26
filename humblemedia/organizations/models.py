@@ -16,5 +16,5 @@ class Organization(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        modified_at = timezone.now()
+        self.modified_at = timezone.now()
         return super().save(*args, **kwargs)
