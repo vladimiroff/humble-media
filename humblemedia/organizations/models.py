@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Organization(models.Model):
@@ -8,6 +9,12 @@ class Organization(models.Model):
     url = models.URLField()
     followers = models.ManyToManyField('auth.User', related_name='following')
     admins = models.ManyToManyField('auth.User', related_name='administrate')
+    created_at = models.DateTimeField(default=timezone.now)
+    modified_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        modified_at = timezone.now()
+        return super().save(*args, **kwargs)

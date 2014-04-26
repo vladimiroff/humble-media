@@ -1,5 +1,14 @@
-<form action=""  method="POST">
-    {% csrf_token %}
-    {{ form.as_ul}}
-    <input type="submit" value="Login">
-</form>
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div id="page-content-wrapper" class="col-8 col-sm-8 col-lg-8">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button class="btn-primary">Login</button>
+    </form>
+</div>
+
+{% endblock %}

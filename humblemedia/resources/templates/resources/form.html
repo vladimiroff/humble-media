@@ -1,0 +1,6 @@
+{{ form.errors }}
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Submit">
+</form>
