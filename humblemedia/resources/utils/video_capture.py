@@ -10,7 +10,7 @@ def get_video_duration(filename):
     duration_line = stdout_lines[0].decode()
     match = re.match(r'\s*Duration:\s*(?P<hours>\d+):(?P<minutes>\d+):(?P<seconds>\d+)', duration_line)
     if not match:
-        raise 'Invalid video file'
+        raise Exception('Invalid video file')
 
     groups = match.groupdict()
 
