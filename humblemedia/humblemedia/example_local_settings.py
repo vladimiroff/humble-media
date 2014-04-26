@@ -11,6 +11,9 @@ DATABASES = {
     }
 }
 
+STRIPE_API_SECRET_KEY = "sk_test_EW7riigFBCIUUQqrcik80c8Z"
+STRIPE_API_PUBLIC_KEY = "pk_test_SJpgMyQ1sjwHVwGtjbqwaW20"
+
 if len(sys.argv) > 1 and 'test' in sys.argv[1]:
     DATABASES = {
         'default': {

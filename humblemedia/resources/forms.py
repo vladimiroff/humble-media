@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 import stripe
 
@@ -48,7 +49,7 @@ class ResourceForm(forms.ModelForm):
 
 class StripeForm(forms.Form):
     stripeToken = forms.CharField(required=True)
-    amount = forms.IntegerField(required=True) # in cents
+    amount = forms.IntegerField(required=True)
     cause_id = forms.IntegerField(required=True)
 
     def __init__(self, user, resource, *args, **kwargs):
@@ -59,36 +60,30 @@ class StripeForm(forms.Form):
     def charge(self):
         cleaned_data = self.clean()
 
-        cause = Cause.objects.get(pk=cause_id)
+        cause = Cause.objects.get(pk=cleaned_data['cause_id'])
         amount = cleaned_data['amount']
 
         if amount < self.resource.min_price:
             raise forms.ValidationError('You hacker!')
 
-        # Set your secret key: remember to change this to your live secret key in production
-        # See your keys here https://manage.stripe.com/account
-        stripe.api_key = 'sk_test_BQokikJOvBiI2HlWgH4olfQ2'
-
-        # Get the credit card details submitted by the form
+        stripe.api_key = settings.STRIPE_API_SECRET_KEY
         token = cleaned_data['stripeToken']
-
         payment = Payment(
             user=self.user,
             resource=self.resource,
             amount=amount,
-            cause=cause
+            cause=cause,
+            token=token,
         )
 
-        # Create the charge on Stripe's servers - this will charge the user's card
         try:
             stripe.Charge.create(
-                amount=amount, # amount in cents, again
+                amount=amount,
                 currency='bgn',
                 card=token,
                 description=str(payment)
             )
         except stripe.CardError as e:
-            # The card has been declined
             raise forms.ValidationError(e)
 
         payment.save()

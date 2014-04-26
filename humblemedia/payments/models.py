@@ -7,11 +7,12 @@ class Payment(models.Model):
     resource = models.ForeignKey('resources.Resource', related_name='payments')
     amount = models.PositiveIntegerField()
     cause = models.ForeignKey('causes.Cause', related_name='payments')
+    token = models.CharField(max_length=32)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return '{} bought {} for {} BGN and gave them to {}'.format(
-            self.user.full_name(),
+            self.user.get_full_name(),
             self.resource.title,
             self.amount,
             self.cause.title)
