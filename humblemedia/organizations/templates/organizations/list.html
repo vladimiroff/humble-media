@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="page-content-wrapper">
+    {% for organization in organizations %}
+    <div class="col-6 col-sm-6 col-lg-12 well">
+        <div class="content-heading clearfix media" style="float: left; margin-right: 20px; ">
+            <img src="http://placehold.it/200x200&text=Image">
+        </div>
+        
+        <h3>Experience &nbsp </h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis, aperiam, modi sunt animi tenetur minima eligendi vel beatae quam quas nesciunt rerum assumenda eaque provident harum quasi odio nam repellendus.</p>
+
+        <p>Organization: Lololo</p>
+        <p>Target: 2000$</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
