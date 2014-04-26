@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^organizations/', include('organizations.urls')),
+    url(r'^causes/', include('causes.urls')),
 )
