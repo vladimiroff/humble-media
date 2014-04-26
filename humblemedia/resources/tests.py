@@ -70,3 +70,15 @@ class ResourceTest(TestCase):
         after_delete = Resource.objects.count()
 
         self.assertEqual(before_delete - 1, after_delete)
+
+
+def manual_create():
+    user = User.objects.filter()[0]
+    ret = Resource.objects.create(**{
+        'title': 'Save the pandas',
+        'description': 'I want to save them all',
+        'author': user,
+        'min_price': 50,
+        'is_published': True,
+        })
+

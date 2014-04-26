@@ -17,10 +17,10 @@ def _get_pdf_file_percentage(input_file, output_file, percentage):
 
     count = round(pdf_input.getNumPages() * percentage / 100)
     if count < 1:
-        write_page(pdf_output, pdf_input, 0)
+        _write_page(pdf_output, pdf_input, 0)
     else:
         for iter in range(0, count):
-            write_page(pdf_output, pdf_input, iter)
+            _write_page(pdf_output, pdf_input, iter)
 
     output_stream = open(output_file, 'wb')
     pdf_output.write(output_stream)

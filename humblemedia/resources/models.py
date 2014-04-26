@@ -57,6 +57,9 @@ class Resource(models.Model):
     def is_bought_by(user):
         return Payment.objects.filter(resource=resource, user=user).exists()
 
+    def get_attachments(self):
+        ct = ContentType.objects.get_for_model(self)
+        return Attachment.objects.filter(object_id=self.id, content_type=ct)
 
 class Preview(models.Model):
     attachment = models.ForeignKey(Attachment, related_name="preview")

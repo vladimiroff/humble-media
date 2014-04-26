@@ -2,13 +2,15 @@ import base64
 import magic
 import os
 import logging
+from abc import ABCMeta
+
 from .utils import audio_clip, video_capture
 
 from . import models
 
 LOG = logging.getLogger(__name__)
 
-class BaseProcessor():
+class BaseProcessor(metaclass=ABCMeta):
     mime_types = tuple()
     extensions = tuple()
 
@@ -16,7 +18,7 @@ class BaseProcessor():
         self.attachment = attachment
 
     def process(self):
-        rec = models.Snapshot()
+        rec = models.Preview()
         rec.attachment = self.attachment
         rec.snapshot_file = "{}.{}".format(base64.b64encode(os.path.splitext(self.attachment.file_name.name)[0]),
                                            self.get_target_extension())
@@ -37,8 +39,11 @@ class BaseProcessor():
 
     @classmethod
     def start_processing(cls, att):
-        prc = cls(att)
-        return prc.process()
+        try:
+            import uwsgi
+            uwsgi.spool(processor=cls.__name__.encode(), id=str(att.id).encode())
+        except :
+            LOG.warning("Please run via uWSGI to execute the background tasks")
 
 
 class AudioProcessor(BaseProcessor):
