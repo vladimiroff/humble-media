@@ -17,9 +17,8 @@
             </div>
             <!-- col-6 col-md-4 col-sm-6 .col-xs-6 col-lg-3  -->
             {% for image in images %}
-                    {{ image.get_previews.0 }}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                    <p class="well home-grid-img"><img src=""></p>
+                    <p class="well home-grid-img"><img src="/media/{{ image.get_previews.0 }}"> {{ image.title }}</p>
                 </div>
             {% endfor %}
         </div>
@@ -31,7 +30,7 @@
 
             {% for video in videos %}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                    <p class="well home-grid-img"><img src=""></p>
+                    <p class="well home-grid-img"><img src="/media/{{ video.get_previews.0 }}"> {{ image.video }}</p>
                 </div>
             {% endfor %}
         </div>
