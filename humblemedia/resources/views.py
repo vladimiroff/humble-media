@@ -67,7 +67,7 @@ class VideoList(ListView):
         return self.model.videos.all()
 
 
-class DocumentsList(ListView):
+class DocumentList(ListView):
     model = Resource
     template_name = 'resources/list.html'
     context_object_name = 'resources'
