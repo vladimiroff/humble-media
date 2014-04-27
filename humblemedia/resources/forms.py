@@ -8,22 +8,34 @@ from causes.models import Cause
 from payments.models import Payment
 
 
-class AttachmentForm(forms.ModelForm):
+class AttachmentForm(forms.Form):
+    file = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'multiple': 'on'})
+    )
 
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop('model')
         self.id = kwargs.pop('id')
-        super(AttachmentForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        for file in self.files.getlist('file'):
+            if file._size > settings.FILE_UPLOAD_MAX_MEMORY_SIZE:
+                raise forms.ValidationError("File too big")
+        return cleaned_data
 
     def save(self, *args, **kwargs):
-        instance = super(AttachmentForm, self).save(commit=False)
-        instance.content_type = ContentType.objects.get(model=self.model[:-1])
-        instance.object_id = self.id
-        instance.save(*args, **kwargs)
-        return instance
+        attachments = []
+        content_type = ContentType.objects.get(model=self.model[:-1])
+        object_id = self.id
+        for file in self.files.getlist('file'):
+            attachments.append(Attachment.objects.create(file=file,
+                                                         content_type=content_type,
+                                                         object_id=object_id))
+        return attachments
 
     class Meta:
-        model = Attachment
         fields = (
             'file',
         )

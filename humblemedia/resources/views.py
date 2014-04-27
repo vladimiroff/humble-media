@@ -121,9 +121,9 @@ def upload_attachment(request, model, pk):
     files = request.FILES
     form = AttachmentForm(data, files, model=model, id=pk)
     if form.is_valid():
-        obj = form.save()
-        mm = MediaManager(obj)
-        mm.process()
+        for attachment in form.save():
+            mm = MediaManager(attachment)
+            mm.process()
         return redirect('/{}/{}/'.format(model, pk))
     return render(request, 'resources/upload.html', locals())
 
