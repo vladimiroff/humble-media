@@ -90,7 +90,7 @@ class ResourceBuy(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.charge()
-        return redirect('/')
+        return redirect('resources:download', pk=self.resource.pk)
 
     def form_invalid(self, form):
         return self.render_to_response(
