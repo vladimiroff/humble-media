@@ -3,9 +3,14 @@
 {% block content %}
 <div class="col-12 col-sm-12 col-lg-12 well" style="margin-top:45px;">
     {% for resource in resources %}
-    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-        <div class="well home-grid-img"><img src="/media/{{ resource.get_previews.0 }}"><p>{{ resource.title }}</p></div>
-    </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+            <div class="well home-grid-img">
+                <a href="{% url 'resources:detail' resource.pk %}">
+                    <img src="/media/{{ resource.get_previews.0 }}">
+                </a>
+                <p>{{ resource.title }}</p>
+            </div>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}

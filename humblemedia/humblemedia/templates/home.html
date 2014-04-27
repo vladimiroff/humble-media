@@ -18,7 +18,12 @@
             <!-- col-6 col-md-4 col-sm-6 .col-xs-6 col-lg-3  -->
             {% for image in images %}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                    <p class="well home-grid-img"><img src="/media/{{ image.get_previews.0 }}"> {{ image.title }}</p>
+                    <div class="well home-grid-img">
+                        <a href="{% url 'resources:detail' image.pk %}">
+                            <img src="/media/{{ image.get_previews.0 }}">
+                        </a>
+                        <p>{{ image.title }}</p>
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -28,9 +33,14 @@
                 <p class="lead">Top videos:</p>
             </div>
 
-            {% for video in videos %}
+           {% for video in videos %}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                    <p class="well home-grid-img"><img src="/media/{{ video.get_previews.0 }}"> {{ image.video }}</p>
+                    <div class="well home-grid-img">
+                        <a href="{% url 'resources:detail' video.pk %}">
+                            <img src="/media/{{ video.get_previews.0 }}">
+                        </a>
+                        <p>{{ video.title }}</p>
+                    </div>
                 </div>
             {% endfor %}
         </div>
