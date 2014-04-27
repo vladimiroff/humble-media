@@ -183,5 +183,5 @@ def download_attachment(request, pk, attachment_id):
         response = HttpResponse(content=f.read())
         response['Content-Type'] = 'application/octet-stream'
         response['Content-Disposition'] = 'attachment; filename={}'.format(
-            f.name)
+            f.name.split('/')[-1])
         return response

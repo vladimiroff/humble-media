@@ -17,7 +17,7 @@ USE_L10N = True
 USE_TZ = True
 WSGI_APPLICATION = 'humblemedia.wsgi.application'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 ** 3
