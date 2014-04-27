@@ -93,23 +93,22 @@ class ResourceBuy(LoginRequiredMixin, FormView):
         return redirect('/')
 
     def form_invalid(self, form):
-        resource = get_object_or_404(Resource, pk=pk)
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  resource=resource,
+                                  resource=self.resource,
                                   stripe_secret=settings.STRIPE_API_PUBLIC_KEY))
 
     def get(self, request, pk, **kwargs):
-        resource = get_object_or_404(Resource, pk=pk)
-        form = StripeForm(request.user, resource, **self.get_form_kwargs())
+        self.resource = get_object_or_404(Resource, pk=pk)
+        form = StripeForm(request.user, self.resource, **self.get_form_kwargs())
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  resource=resource,
+                                  resource=self.resource,
                                   stripe_secret=settings.STRIPE_API_PUBLIC_KEY))
 
     def post(self, request, pk, **kwargs):
-        resource = get_object_or_404(Resource, pk=pk)
-        form = StripeForm(request.user, resource, **self.get_form_kwargs())
+        self.resource = get_object_or_404(Resource, pk=pk)
+        form = StripeForm(request.user, self.resource, **self.get_form_kwargs())
         if form.is_valid():
             return self.form_valid(form)
         else:

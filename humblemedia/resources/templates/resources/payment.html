@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>Stripe Getting Started Form</title>
+{% extends "base.html" %}
+{% load price %}
 
-  <!-- The required Stripe lib -->
+{% block content %}
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
   <!-- jQuery is used only for this example; it isn't required to use Stripe -->
@@ -45,56 +42,49 @@
       });
     });
   </script>
-</head>
-<body>
-  <form action="" method="POST" id="payment-form">
+<div id="page-content-wrapper">
+    <div class="page-content inset">
+  {{ form.errors }}
+  <form action="" method="POST" id="payment-form"  class="col-md-6">
     {% csrf_token %}
     <span class="payment-errors"></span>
 
-    <div class="form-row">
-      <label>
-        <span>Card Number</span>
-        <input type="text" size="20" data-stripe="number"/>
-      </label>
+
+    <div class="form-group" style="width: 85%; float: left;">
+      <label>Card Number</label>
+        <input type="text" size="20" data-stripe="number" class="form-control"/>
     </div>
 
-    <div class="form-row">
-      <label>
-        <span>CVC</span>
-        <input type="text" size="4" data-stripe="cvc"/>
-      </label>
+    <div class="form-group" style="width: 15%; float: left; padding-left: 15px;">
+      <label>CVC</label>
+        <input type="text" size="3" data-stripe="cvc" class="form-control" style="width: 70px;" />
     </div>
 
-    <div class="form-row">
-      <label>
-        <span>Expiration (MM/YYYY)</span>
-        <input type="text" size="2" data-stripe="exp-month"/>
-      </label>
+    <div class="form-group">
+      <label>Expiration (MM/YYYY)</label>
+        <input type="text" size="2" data-stripe="exp-month" class="form-control" style="width: 50px; display: inline;" />
       <span> / </span>
-      <input type="text" size="4" data-stripe="exp-year"/>
+      <input type="text" size="4" data-stripe="exp-year" class="form-control" style="width: 80px;  display: inline;" />
     </div>
 
-    <div class="form-row">
-      <label>
-        <span>Price, minimum: {{ resource.min_price }} BGN</span>
-        <input type="number" name="amount" size="2"/>
-      </label>
+    <div class="form-group">
+      <label>Price, minimum: {{ resource.min_price }}</label>
+      <input type="number" name="amount" size="2" class="form-control"/>
     </div>
 
-    <div class="form-row">
-      <label>
-        <span>For Cause</span>
-        <select name="cause_id">
+    <div class="form-group">
+      <label>For Cause</label>
+        <select name="cause_id" class="form-control">
           {% for cause in resource.causes.all %}
             <option value={{ cause.pk }}>
               {{ cause.title }}
             </option>
           {% endfor %}
         </select>
-      </label>
     </div>
 
-    <button type="submit">Submit Payment</button>
+    <button class="btn btn-primary">Submit Payment</button>
   </form>
-</body>
-</html>
+</div>
+</div>
+{% endblock %}

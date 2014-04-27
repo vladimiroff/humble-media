@@ -7,7 +7,7 @@ LANGUAGE_CODE = 'en-us'
 ROOT_URLCONF = 'humblemedia.urls'
 SECRET_KEY = '5*trcgvuqlu)c+n2665!*-m=xicn$tuitwy4w7rknelpreleg!'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 TEMPLATE_DEBUG = True
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -23,7 +23,7 @@ TEMPLATE_DIRS = (
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'humblemedia/static'),
+    os.path.join(BASE_DIR, '..', 'humblemedia/static'),
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
