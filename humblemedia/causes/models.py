@@ -1,7 +1,10 @@
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
+
+from resources.models import Attachment
 
 
 class Cause(models.Model):
@@ -27,3 +30,7 @@ class Cause(models.Model):
 
     def get_absolute_url(self):
         return reverse('causes:details', kwargs={'pk': self.pk})
+
+    def get_attachments(self):
+        ct = ContentType.objects.get_for_model(self)
+        return Attachment.objects.filter(object_id=self.id, content_type=ct)
