@@ -10,40 +10,29 @@
     </div>
     <!-- Keep all page content within the page-content inset div! -->
     <div class="page-content inset">
+        
         <div class="row">
             <div class="col-md-12">
                 <p class="lead">Top images:</p>
             </div>
             <!-- col-6 col-md-4 col-sm-6 .col-xs-6 col-lg-3  -->
             {% for image in images %}
+                    {{ image.get_previews.0 }}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                    <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
+                    <p class="well home-grid-img"><img src=""></p>
                 </div>
             {% endfor %}
-            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <p class="lead">Top videos:</p>
             </div>
-            <div class="col-6 col-sm-6 col-lg-3">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-6 col-sm-6 col-lg-3">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-6 col-sm-6 col-lg-3">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-6 col-sm-6 col-lg-3">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ top_contributors }}
-            </div>
+            {% for video in videos %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                    <p class="well home-grid-img"><img src=""></p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
