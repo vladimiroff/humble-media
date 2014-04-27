@@ -13,12 +13,13 @@ LOG = logging.getLogger(__name__)
 
 def get_file_extension(file_name):
     _, file_extension = os.path.splitext(file_name)
-    return file_extension
+    return file_extension.decode().lstrip(".")
 
 
 class BaseProcessor(metaclass=ABCMeta):
     mime_types = tuple()
     extensions = tuple()
+    preview_type = "unknown"
 
     def __init__(self, attachment):
         self.attachment = attachment
@@ -27,6 +28,7 @@ class BaseProcessor(metaclass=ABCMeta):
         rec = models.Preview()
         rec.attachment = self.attachment
         rec.preview_file = '{}.{}'.format(str(uuid.uuid4()).replace('-',''), self.get_target_extension())
+        rec.preview_type = self.preview_type
 
         input_path = self.attachment.file.path
         output_path = rec.preview_file.path
@@ -49,7 +51,7 @@ class BaseProcessor(metaclass=ABCMeta):
         except Exception as exc:
             print ('Not running in uWSGI env. Executing in foreground: {}'.format(exc))
             proc = cls(att)
-            proc.process()
+            return proc.process()
 
 class AudioProcessor(BaseProcessor):
     mime_types = ('audio/mpeg', 'audio/x-mpeg', 'audio/mp3',
@@ -58,6 +60,8 @@ class AudioProcessor(BaseProcessor):
                   'audio/x-wav',
     )
     extensions = ('.mp3', )
+    preview_type = "audio"
+
 
     def get_target_extension(self):
         return 'mp3'
@@ -80,6 +84,7 @@ class VideoProcessor(BaseProcessor):
                   'video/x-ms-wmv',
                   'video/x-flv']
     extensions = ('.mp4', '.avi', '.mov', '.wmv', '.mpg', '.mpeg')
+    preview_type = 'video'
 
     def get_target_extension(self):
         return 'png'
@@ -93,12 +98,10 @@ class DocumentProcessor(BaseProcessor):
     """
     mime_types = ['application/pdf', 'text/plain']
     extensions = ('.pdf', '.txt')
+    preview_type = 'document'
 
     def get_target_extension(self):
         return get_file_extension(self.attachment.file.name)
-
-    def process_file(self, input_path, output_path):
-        return document_processing.get_document_file_percentage(input_file=input_path, output_file=output_path)
 
     def process_file(self, input_path, output_path):
         return document_processing.get_document_file_percentage(input_path, output_path)
@@ -109,6 +112,7 @@ class ImageProcessor(BaseProcessor):
     """
     mime_types = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif']
     extensions = ('.jpg', '.png', '.bmp', '.gif')
+    preview_type = 'image'
 
     def get_target_extension(self):
         return get_file_extension(self.attachment.file.name)
