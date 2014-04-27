@@ -11,7 +11,10 @@ def content_processing(env):
     print (env)
     resource_id = int(env.get(b"id"))
     processor_name = env.get(b"processor").decode()
-    att = Attachment.objects.get(id=resource_id)
+    try:
+        att = Attachment.objects.get(id=resource_id)
+    except Attachment.DoesNotExist:
+        return uwsgi.SPOOL_OK
 
     for cls in BaseProcessor.__subclasses__():
         if cls.__name__ == processor_name:
