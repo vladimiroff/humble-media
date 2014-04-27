@@ -95,7 +95,7 @@ class DocumentProcessor(BaseProcessor):
     extensions = ('.pdf', '.txt')
 
     def get_target_extension(self):
-        return get_file_extension(self.attachment.att.file.name)
+        return get_file_extension(self.attachment.file.name)
 
     def process_file(self, input_path, output_path):
         return document_processing.get_document_file_percentage(input_path, output_path)
@@ -108,7 +108,7 @@ class ImageProcessor(BaseProcessor):
     extensions = ('.jpg', '.png', '.bmp', '.gif')
 
     def get_target_extension(self):
-        return get_file_extension(self.attachment.att.file.name)
+        return get_file_extension(self.attachment.file.name)
 
     def process_file(self, input_path, output_path):
         return image_thumbnail.get_image_thumbnail(input_path, output_path, (100, 100))
