@@ -118,7 +118,7 @@ class ImageProcessor(BaseProcessor):
         return get_file_extension(self.attachment.file.name)
 
     def process_file(self, input_path, output_path):
-        return image_thumbnail.get_image_thumbnail(input_path, output_path, (100, 100))
+        return image_thumbnail.get_image_thumbnail(input_path, output_path, (150, 150))
 
 
 class MediaManager:
