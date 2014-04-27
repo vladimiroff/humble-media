@@ -30,6 +30,19 @@ class License(models.Model):
         return self.name
 
 
+class ResourceManager(models.Manager):
+    def __init__(self, resource_type):
+        super().__init__()
+        self.resource_type = resource_type
+
+    def get_queryset(self):
+        ct = ContentType.objects.get_for_model(self.model)
+        resource_ids = Attachment.objects.filter(
+            content_type=ct, previews__preview_type=self.resource_type
+        ).values_list('object_id', flat=True).distinct()
+        return super().get_queryset().filter(id__in=resource_ids)
+
+
 class Resource(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
@@ -42,6 +55,12 @@ class Resource(models.Model):
     causes = models.ManyToManyField('causes.Cause', related_name='resources')
     license = models.ForeignKey('License', related_name='resources', null=True, blank=True)
 
+    objects = models.Manager()
+    audios = ResourceManager('audio')
+    videos = ResourceManager('video')
+    images = ResourceManager('image')
+    documents = ResourceManager('document')
+    others = ResourceManager('unknown')
     tags = TaggableManager()
 
     def __str__(self):
