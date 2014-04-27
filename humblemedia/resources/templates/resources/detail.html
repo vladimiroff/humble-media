@@ -16,7 +16,7 @@
         {% endfor %}  
         </p>
         <p>Mininal price: <strong>{{ resource.min_price|price }}</strong></p>
-        <button class="btn btn-primary">Buy now</button>
+        <a href="{% url 'resources:buy' resource.pk%}"><button class="btn btn-primary">Buy now</button></a>
     </div>
 </div>
 {% endblock %}
