@@ -5,7 +5,7 @@
     <div class="col-12 col-sm-12 col-lg-12 well" style="margin-top:30px;">
     <h1>Add new content:</h1>
     <form method="POST">
-        {{ form|crispy }}
+        {{ form | crispy }}
         {% csrf_token %}
         <button class="btn btn-primary">Upload content</button>
     </form>

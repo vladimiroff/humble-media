@@ -17,6 +17,8 @@ PUBLIC_FIELDS = (
     'title',
     'description',
     'min_price',
+    'causes',
+    'license',
     'is_published',
 )
 
