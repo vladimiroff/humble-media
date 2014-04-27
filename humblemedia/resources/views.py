@@ -41,6 +41,41 @@ class MyResourceList(ListView):
                                          is_verified=True)
 
 
+class ImageList(ListView):
+    model = Resource
+    template_name = 'resources/list.html'
+    context_object_name = 'resources'
+
+    def get_queryset(self):
+        return self.model.images.all()
+
+class AudioList(ListView):
+    model = Resource
+    template_name = 'resources/list.html'
+    context_object_name = 'resources'
+
+    def get_queryset(self):
+        return self.model.audios.all()
+
+
+class VideoList(ListView):
+    model = Resource
+    template_name = 'resources/list.html'
+    context_object_name = 'resources'
+
+    def get_queryset(self):
+        return self.model.videos.all()
+
+
+class DocumentsList(ListView):
+    model = Resource
+    template_name = 'resources/list.html'
+    context_object_name = 'resources'
+
+    def get_queryset(self):
+        return self.model.documents.all()
+
+
 class ResourceDetail(DetailView):
     template_name = 'resources/detail.html'
     model = Resource
