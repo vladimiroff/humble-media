@@ -63,6 +63,6 @@ class Resource(models.Model):
 
 
 class Preview(models.Model):
-    attachment = models.ForeignKey(Attachment, related_name="preview")
+    attachment = models.ForeignKey(Attachment, related_name="previews")
     preview_file = models.FileField(upload_to="previews")
     preview_type = models.CharField(max_length=32)
