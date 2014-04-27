@@ -185,3 +185,4 @@ def download_attachment(request, pk, attachment_id):
         response['Content-Disposition'] = 'attachment; filename={}'.format(
             f.name.split('/')[-1])
         return response
+
