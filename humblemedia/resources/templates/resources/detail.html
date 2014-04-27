@@ -6,7 +6,7 @@
     <div class="page-content inset">
         <h3>{{ resource.title }}</h3>
         <div class="content-heading clearfix media" style="float: left; margin-right: 20px; ">
-            <img src="{{ MEDIA_URL }}{{ resource.get_attachments.0 }}" style="border: 3px solid; margin-bottom: 20px;">
+            <img src="/media/{{ resource.get_previews.0 }}" style="border: 3px solid; margin-bottom: 20px;">
         </div>
         {% autoescape on %}
             <p>{{ resource.description }}</p>
