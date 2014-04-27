@@ -16,3 +16,6 @@ class Payment(models.Model):
             self.resource.title,
             self.amount / 100,
             self.cause.title)
+
+    class Meta:
+        ordering = ['-created_at']

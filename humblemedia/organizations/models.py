@@ -18,3 +18,6 @@ class Organization(models.Model):
     def save(self, *args, **kwargs):
         self.modified_at = timezone.now()
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-modified_at']

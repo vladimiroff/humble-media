@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase, client
 
+from causes.models import Cause
 from .models import Resource
 
 
@@ -12,12 +13,21 @@ class ResourceTest(TestCase):
         self.client = client.Client()
         self.user = User.objects.create_user('panda', 'panda@bamboo.cn', 'lovebamboo')
         self.bad_user = User.objects.create_user('redpanda', 'panda@red.bg', 'redhearts')
+        Cause.objects.create(**{
+            'title': 'Save the pandas',
+            'description': 'I want to save them all',
+            'creator': self.user,
+            'target': 50,
+            'is_published': True,
+        })
+
         self.valid_record = {
             'title': 'Save the pandas',
             'description': 'I want to save them all',
             'author': self.user,
             'min_price': 50,
             'is_published': True,
+            'causes': [c.pk for c in Cause.objects.all()],
         }
 
     def test_logged_user_add_resource(self):

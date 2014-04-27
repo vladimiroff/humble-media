@@ -63,6 +63,9 @@ class Resource(models.Model):
     others = ResourceManager('unknown')
     tags = TaggableManager()
 
+    class Meta:
+        ordering = ['-modified_at']
+
     def __str__(self):
         return self.title
 
