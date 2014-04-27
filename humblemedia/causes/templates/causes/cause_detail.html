@@ -15,10 +15,13 @@
                 {{ cause.description }}
             {% endautoescape %}
         </p>
-            
+
         <p>Target: <strong>{{ cause.target|price }}</strong></p>
         <p>Website: <a href="{{ cause.url }}">{{ cause.url }}</a><br>
+        <p>Gathered so far: <strong>{{ has_so_far }} BGN</strong></p>
+        {% if cause.organization %}
         Organization: <strong>{{ cause.organization }}</strong></p>
+        {% endif %}
     </div>
 </div>
 

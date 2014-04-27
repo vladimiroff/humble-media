@@ -2,10 +2,12 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
+from django.db.models import Sum
 from django.views.generic import (CreateView, DeleteView, DetailView,
                                   ListView, UpdateView, FormView)
 
 from humblemedia.utils import LoginRequiredMixin
+from payments.models import Payment
 from .models import Cause
 from .forms import CauseForm
 
@@ -27,6 +29,14 @@ class MyCauseList(LoginRequiredMixin, CauseList):
 class CauseDetails(DetailView):
     context_object_name = 'cause'
     model = Cause
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        amount = Payment.objects.filter(
+            cause=context['cause']
+        ).aggregate(paid=Sum('amount'))['paid']
+        context['has_so_far'] = '{:.2f}'.format(0 if amount is None else amount)
+        return context
 
 
 class CauseUpdate(LoginRequiredMixin, UpdateView):
