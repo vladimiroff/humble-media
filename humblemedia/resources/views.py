@@ -82,6 +82,11 @@ class ResourceDetail(DetailView):
     template_name = 'resources/detail.html'
     model = Resource
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_bought'] = context['resource'].is_bought_by(self.request.user)
+        return context
+
 
 class ResourceCreate(LoginRequiredMixin, CreateView):
     model = Resource

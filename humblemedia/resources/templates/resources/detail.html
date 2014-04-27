@@ -19,8 +19,12 @@
             </a>
         {% endfor %}  
         </p>
+        {% if is_bought %}
+        <a href="{% url 'resources:download' resource.pk%}"><button class="btn btn-primary">DOWNLOAD</button></a>
+        {% else %}
         <p>Mininal price: <strong>{{ resource.min_price|price }}</strong></p>
         <a href="{% url 'resources:buy' resource.pk%}"><button class="btn btn-primary">Buy now</button></a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

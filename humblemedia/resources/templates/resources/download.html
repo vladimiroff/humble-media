@@ -4,11 +4,11 @@
 <div id="page-content-wrapper">
     <div class="page-content inset">
         <h4>You have successfully bought: {{ resource }}!</h4>
-        <ul>    
-            {% for attachment in attachments %}
-                <p>Choose a file to download:
+        <p>Choose a file to download:
+            <ul>
+                {% for attachment in attachments %}
                 <li><a href="{% url 'resources:download_attachment' resource.pk attachment.pk %}">{{ attachment }}</a></li>
-                </p>
+            </p>
             {% endfor %}
         </ul>
     </div>
