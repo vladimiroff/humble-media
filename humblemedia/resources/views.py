@@ -153,6 +153,9 @@ class ResourceBuy(LoginRequiredMixin, FormView):
 
 @login_required
 def upload_attachment(request, model, pk):
+    obj = get_object_or_404(Resource, pk=pk)
+    if request.user != obj.author:
+        return HttpResponseForbidden("Cannot upload in resources you did not create")
     data = request.POST if request.POST else None
     files = request.FILES if request.POST else None
     form = AttachmentForm(data, files, model=model, id=pk)
