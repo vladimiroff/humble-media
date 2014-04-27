@@ -1,11 +1,18 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% block content %}
-    <div style="position: absolute; top:120px; left:200px;">
-        <form action="" method="post" enctype="multipart/form-data" class="form">
-            {% csrf_token %}
-            {{form|crispy}}
-            <input type="submit" value="Upload">
-        </form>
-    </div>
+<div id="page-content-wrapper">
+    <div class="page-content inset">
+        <div style="position: absolute;">
+            <form action="" method="post" enctype="multipart/form-data" class="form">
+                {% csrf_token %}
+                <div class="form-group" style="">
+                    <h3>Upload your files now:</h3>
+                    <input class="form-control" id="id_file" multiple="on" name="file" type="file">
+                </div>
+                <button class="btn btn-primary">Me Done!</button>
+            </form>
+        </div>
+        </div>
+    <div>
+</div>
 {% endblock %}

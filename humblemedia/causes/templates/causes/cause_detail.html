@@ -11,12 +11,14 @@
             <img src="{{ MEDIA_URL }}{{ cause.logo}}" style="border-radius: 50%; border: 3px solid; width: 150px; margin-bottom: 20px;">
         </div>
         <p>
-            {{ cause.description }}
+            {% autoescape off %}
+                {{ cause.description }}
+            {% endautoescape %}
         </p>
             
-        <p>Target: {{ cause.target|price }}</p>
+        <p>Target: <strong>{{ cause.target|price }}</strong></p>
         <p>Website: <a href="{{ cause.url }}">{{ cause.url }}</a><br>
-        Organization: {{ cause.organization }}</p>
+        Organization: <strong>{{ cause.organization }}</strong></p>
     </div>
 </div>
 

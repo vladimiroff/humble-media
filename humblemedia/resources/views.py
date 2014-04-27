@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
@@ -52,9 +52,10 @@ class ResourceCreate(LoginRequiredMixin, CreateView):
     template_name = 'resources/form.html'
 
     def get_success_url(self):
-        return self.object.get_absolute_url()
+        return reverse('upload-attachment', kwargs={'pk': self.resource.pk, 'model': "resources"})
 
     def form_valid(self, form):
+        self.resource = form.instance
         form.instance.author = User.objects.get(pk=self.request.user.pk)
         return super().form_valid(form)
 
