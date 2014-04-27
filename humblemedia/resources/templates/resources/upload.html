@@ -1,9 +1,11 @@
- <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <p>{{ form.file.label_tag }} {{ form.file.help_text }}</p>
-    <p>
-        {{ form.file.errors }}
-        {{ form.file }}
-    </p>
-    <p><input type="submit" value="Upload"></p>
-</form>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div style="position: absolute; top:120px; left:200px;">
+        <form action="" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+{% endblock %}

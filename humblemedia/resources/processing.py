@@ -13,7 +13,7 @@ LOG = logging.getLogger(__name__)
 
 def get_file_extension(file_name):
     _, file_extension = os.path.splitext(file_name)
-    return file_extension.decode().lstrip(".")
+    return file_extension.lstrip(".")
 
 
 class BaseProcessor(metaclass=ABCMeta):
@@ -59,7 +59,7 @@ class AudioProcessor(BaseProcessor):
                   'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio',
                   'audio/x-wav',
     )
-    extensions = ('.mp3', )
+    extensions = ('mp3', )
     preview_type = "audio"
 
 
@@ -83,7 +83,7 @@ class VideoProcessor(BaseProcessor):
                   'video/x-matroska',
                   'video/x-ms-wmv',
                   'video/x-flv']
-    extensions = ('.mp4', '.avi', '.mov', '.wmv', '.mpg', '.mpeg')
+    extensions = ('mp4', 'avi', 'mov', 'wmv', 'mpg', 'mpeg')
     preview_type = 'video'
 
     def get_target_extension(self):
@@ -97,7 +97,7 @@ class DocumentProcessor(BaseProcessor):
     """
     """
     mime_types = ['application/pdf', 'text/plain']
-    extensions = ('.pdf', '.txt')
+    extensions = ('pdf', 'txt')
     preview_type = 'document'
 
     def get_target_extension(self):
@@ -111,7 +111,7 @@ class ImageProcessor(BaseProcessor):
     """
     """
     mime_types = ['image/jpeg', 'image/png', 'image/bmp', 'image/gif']
-    extensions = ('.jpg', '.png', '.bmp', '.gif')
+    extensions = ('jpg', 'png', 'bmp', 'gif')
     preview_type = 'image'
 
     def get_target_extension(self):
