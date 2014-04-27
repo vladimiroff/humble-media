@@ -11,8 +11,8 @@ class Payment(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return '{} bought {} for {} BGN and gave them to {}'.format(
+        return '{} bought {} for {:.2f} BGN and gave them to {}'.format(
             self.user.get_full_name(),
             self.resource.title,
-            self.amount,
+            self.amount / 100,
             self.cause.title)

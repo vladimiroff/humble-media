@@ -61,7 +61,7 @@ class ResourceForm(forms.ModelForm):
 
 class StripeForm(forms.Form):
     stripeToken = forms.CharField(required=True)
-    amount = forms.IntegerField(required=True)
+    amount = forms.FloatField(required=True)
     cause_id = forms.IntegerField(required=True)
 
     def __init__(self, user, resource, *args, **kwargs):
@@ -73,7 +73,7 @@ class StripeForm(forms.Form):
         cleaned_data = self.clean()
 
         cause = Cause.objects.get(pk=cleaned_data['cause_id'])
-        amount = cleaned_data['amount']
+        amount = int(cleaned_data['amount'] * 100)
 
         if amount < self.resource.min_price:
             raise forms.ValidationError('You hacker!')
