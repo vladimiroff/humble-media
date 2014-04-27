@@ -1,13 +1,14 @@
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from django.http.response import HttpResponseForbidden
+from django.http.response import HttpResponse, HttpResponseForbidden, HttpResponseNotFound
 from django.views.generic import (CreateView, DeleteView, DetailView,
                                   ListView, UpdateView, FormView)
 from django.shortcuts import render, redirect, get_object_or_404
 
 from humblemedia.utils import LoginRequiredMixin
-from .models import Resource
+from .models import Resource, Attachment
 from .forms import AttachmentForm, StripeForm
 from .processing import MediaManager
 
@@ -108,6 +109,7 @@ class ResourceBuy(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 
 
+@login_required
 def upload_attachment(request, model, pk):
     data = request.POST if request.POST else None
     files = request.FILES
@@ -118,3 +120,26 @@ def upload_attachment(request, model, pk):
         mm.process()
         return redirect('/{}/{}/'.format(model, pk))
     return render(request, 'resources/upload.html', locals())
+
+
+@login_required
+def download(request, pk):
+    resource = get_object_or_404(Resource, id=pk)
+    attachments = resource.get_attachments()
+    return render(request, 'resources/download.html', locals())
+
+
+@login_required
+def download_attachment(request, pk, attachment_id):
+    resource = get_object_or_404(Resource, id=pk)
+    attachment = get_object_or_404(Attachment, id=attachment_id)
+
+    if not resource.is_bought_by(request.user):
+        return HttpResponseNotFound()
+
+    with open(attachment.file.path, 'rb') as f:
+        response = HttpResponse(content=f.read())
+        response['Content-Type'] = 'application/octet-stream'
+        response['Content-Disposition'] = 'attachment; filename={}'.format(
+            f.name)
+        return response

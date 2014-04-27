@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/edit/$', views.ResourceEdit.as_view(), name='edit'),
     url(r'^(?P<pk>\d+)/delete/$', views.ResourceDelete.as_view(), name='delete'),
     url(r'^(?P<pk>\d+)/buy/$', views.ResourceBuy.as_view(), name='buy'),
+    url(r'^(?P<pk>\d+)/download/$', views.download, name='download'),
+    url(r'^(?P<pk>\d+)/download/(?P<attachment_id>\d+)/$', views.download_attachment, name='download_attachment'),
 )
