@@ -4,7 +4,7 @@ humble-media
 Landing page
 ------------
  - Top images, videos, audio etc (i.e. resources)
- - gathered so far...
+ - Amount of money gathered so far...
 
 Media
 -----
@@ -13,16 +13,20 @@ Media
    - thumbnails for videos
    - preview for audio
 
-Organisations - Causes - Resources
-----------------------------------
-Stack
------
+Entities
+--------
+
+ - Organisations
+ - Causes
+ - Resources
+
+### Stack
+ - python 3.4.x
  - nginx
  - uwsgi - offloading
- - django 1.7.d.1
- - postgreSQL
+ - django 1.7 beta1
+ - PostgreSQL
 
-Payments - Stripe
------------------
-Downloads
----------
+### Payments via [Stripe](http://stripe.com)
+
+### Downloads
