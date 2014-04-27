@@ -20,7 +20,7 @@ Stack
  - nginx
  - uwsgi - offloading
  - django 1.7.d.1
- - postress
+ - postgreSQL
 
 Payments - Stripe
 -----------------
