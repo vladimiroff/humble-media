@@ -6,8 +6,8 @@ def get_video_capture(filename, at_second, output_file):
     subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
 
 def get_preview_tile(input_path, output_path):
-    cmd = 'ffmpeg -i {input} -frames 10 -vf "select=not(mod(n\,105)),scale=320:240,tile=3x6" {output}'.format(
-        input_path, output_path
+    cmd = 'ffmpeg -i {input} -vf "select=not(mod(n\,200)),scale=320:240,tile=3x4" {output}'.format(
+        input=input_path, output=output_path
     )
     res = subprocess.check_output(cmd, shell=True)
     return res.decode()

@@ -66,6 +66,16 @@ class AudioProcessor(BaseProcessor):
 class VideoProcessor(BaseProcessor):
     """
     """
+    mime_types = ['video/avi',
+                  'video/example',
+                  'video/mpeg',
+                  'video/mp4',
+                  'video/ogg',
+                  'video/quicktime',
+                  'video/webm',
+                  'video/x-matroska',
+                  'video/x-ms-wmv',
+                  'video/x-flv']
 
     def get_target_extension(self):
         return "png"
@@ -76,13 +86,14 @@ class VideoProcessor(BaseProcessor):
 
 
 
-class ImageProcessor(BaseProcessor):
+class DocumentProcessor(BaseProcessor):
     """
     """
+    mime_types = ['application/pdf', 'text/plain']
 
 
 class MediaManager():
-    PROCESSING_MODULES = (AudioProcessor, VideoProcessor, ImageProcessor)
+    PROCESSING_MODULES = (AudioProcessor, VideoProcessor, DocumentProcessor)
 
     def __init__(self, attachment):
         self.attachment = attachment
@@ -94,7 +105,7 @@ class MediaManager():
         att = self.attachment
         mime = self.get_mime_type(att.file.path).decode()
         for mod in self.PROCESSING_MODULES:
-            if mime in mod.mime_types or any(map(att.file_name.name.endswith, mod.extensions)):
+            if mime in mod.mime_types or any(map(att.file.name.endswith, mod.extensions)):
                 mod.start_processing(att)
                 return True
         return False
