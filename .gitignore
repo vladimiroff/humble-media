@@ -63,3 +63,4 @@ local_settings.py
 /static
 humblemedia/humble
 media
+spool

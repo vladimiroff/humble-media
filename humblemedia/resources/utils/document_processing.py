@@ -13,7 +13,7 @@ def _get_pdf_file_percentage(input_file, output_file, percentage):
     pdf_output = PdfFileWriter()
 
     if pdf_input.getNumPages() == 1:
-        raise Exception('Cannot convert single-page PDFs')
+        return False
 
     count = round(pdf_input.getNumPages() * percentage / 100)
     if count < 1:
@@ -24,6 +24,7 @@ def _get_pdf_file_percentage(input_file, output_file, percentage):
 
     output_stream = open(output_file, 'wb')
     pdf_output.write(output_stream)
+    return True
 
     return True
 

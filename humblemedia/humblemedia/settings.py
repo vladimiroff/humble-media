@@ -1,7 +1,9 @@
 import os
 
 ALLOWED_HOSTS = []
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
 DEBUG = True
 LANGUAGE_CODE = 'en-us'
 ROOT_URLCONF = 'humblemedia.urls'
@@ -15,7 +17,7 @@ USE_L10N = True
 USE_TZ = True
 WSGI_APPLICATION = 'humblemedia.wsgi.application'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
 MEDIA_URL = '/media/'
 
 TEMPLATE_DIRS = (

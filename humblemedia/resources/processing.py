@@ -1,4 +1,3 @@
-import base64
 import magic
 import os
 import logging
@@ -48,8 +47,9 @@ class BaseProcessor(metaclass=ABCMeta):
             import uwsgi
             uwsgi.spool({b'processor':cls.__name__.encode(), b'id':str(att.id).encode()})
         except Exception as exc:
-            print ('Please run via uWSGI to execute the background tasks: {}'.format(exc))
-
+            print ('Not running in uWSGI env. Executing in foreground: {}'.format(exc))
+            proc = cls(att)
+            proc.process()
 
 class AudioProcessor(BaseProcessor):
     mime_types = ('audio/mpeg', 'audio/x-mpeg', 'audio/mp3',
@@ -96,6 +96,9 @@ class DocumentProcessor(BaseProcessor):
 
     def get_target_extension(self):
         return get_file_extension(self.attachment.file.name)
+
+    def process_file(self, input_path, output_path):
+        return document_processing.get_document_file_percentage(input_file=input_path, output_file=output_path)
 
     def process_file(self, input_path, output_path):
         return document_processing.get_document_file_percentage(input_path, output_path)
