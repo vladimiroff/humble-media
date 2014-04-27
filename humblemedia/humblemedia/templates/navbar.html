@@ -41,6 +41,7 @@
             <a data-toggle="dropdown" lass="dropdown-toggle" href="#user">
                 <span class="icon-user"></span> {{ user.get_full_name }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
+              <li><a href="{% url 'resources:add' %}">Add resource</a></li>
               <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
             </ul>
           
