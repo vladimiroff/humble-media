@@ -80,6 +80,15 @@ class Resource(models.Model):
         ct = ContentType.objects.get_for_model(self)
         return Attachment.objects.filter(object_id=self.id, content_type=ct)
 
+    def get_previews(self):
+        previews = []
+        attachments = self.get_attachments()
+        for attachment in attachments:
+            preview = attachment.previews.first()
+            if preview is not None:
+                previews.append(preview.preview_file.name)
+        return previews
+
 
 class Preview(models.Model):
     TYPES = (
