@@ -57,8 +57,6 @@
 
     var stripeResponseHandler = function(status, response) {
       var $form = $('#payment-form');
-
-debugger;
       if (response.error) {
         // Show the errors on the form
         $form.find('.payment-errors').text(response.error.message);
@@ -71,8 +69,6 @@ debugger;
 
         // Insert the token into the form so it gets submitted to the server
         $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-        var amountCents = Number((Number($form.find('input[name="type_in_amount"]').val()) || 0)).toFixed(2)*100;
-        $form.append($('<input type="hidden" name="amount" />').val(amountCents));
         // and re-submit
         $form.get(0).submit();
       }
@@ -84,7 +80,6 @@ debugger;
 
         // Disable the submit button to prevent repeated clicks
         $form.find('button').prop('disabled', true);
-debugger;
         Stripe.card.createToken($form, stripeResponseHandler);
 
         // Prevent the form from submitting with the default action

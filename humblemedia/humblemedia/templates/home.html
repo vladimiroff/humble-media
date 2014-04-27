@@ -15,17 +15,11 @@
                 <p class="lead">Top images:</p>
             </div>
             <!-- col-6 col-md-4 col-sm-6 .col-xs-6 col-lg-3  -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-                <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
+            {% for image in images %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                    <p class="well home-grid-img"><img src="http://placehold.it/200x200&text=Image"></p>
+                </div>
+            {% endfor %}
             </div>
         </div>
 
