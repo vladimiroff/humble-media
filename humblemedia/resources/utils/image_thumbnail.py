@@ -31,9 +31,8 @@ def watermark(im, mark, position, opacity=1):
 
 
 def get_image_thumbnail(input_file, output_file, size):
-    import ipdb; ipdb.set_trace()
     image = Image.open(input_file)
-    image.thumbnail(size, PIL.Image.ANTIALIAS)
+    image.thumbnail(size, Image.ANTIALIAS)
     mark = Image.open(os.path.join(settings.STATIC_ROOT, 'images/watermark.png'))
     image = watermark(image, mark, 'tile', 0.5)
     image.save(output_file, 'JPEG')
