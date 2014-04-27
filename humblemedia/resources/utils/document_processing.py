@@ -25,6 +25,8 @@ def _get_pdf_file_percentage(input_file, output_file, percentage):
     output_stream = open(output_file, 'wb')
     pdf_output.write(output_stream)
 
+    return True
+
 def _get_txt_file_percentage(input_file, output_file, percentage):
     input_stream = open(input_file, 'rb')
     content = input_stream.read().decode()
@@ -36,9 +38,12 @@ def _get_txt_file_percentage(input_file, output_file, percentage):
     output_stream = open(output_file, 'wb')
     output_stream.write(content[:count].encode())
 
+    return True
+
 def get_document_file_percentage(input_file, output_file, percentage=10):
     file_type = _get_file_type(input_file)
     if file_type == 'application/pdf':
-        _get_pdf_file_percentage(input_file, output_file, percentage)
+        return _get_pdf_file_percentage(input_file, output_file, percentage)
     elif file_type == 'text/plain':
-        _get_txt_file_percentage(input_file, output_file, percentage)
+        return _get_txt_file_percentage(input_file, output_file, percentage)
+    return None
