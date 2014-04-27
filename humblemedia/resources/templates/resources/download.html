@@ -1,1 +1,16 @@
-da
+{% extends "base.html" %}
+
+{% block content %}
+<div id="page-content-wrapper">
+    <div class="page-content inset">
+        <h4>You have successfully bought: {{ resource }}!</h4>
+        <ul>    
+            {% for attachment in attachments %}
+                <p>Choose a file to download:
+                <li><a href="{% url 'resources:download_attachment' resource.pk attachment.pk %}">{{ attachment }}</a></li>
+                </p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
